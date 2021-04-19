@@ -40,11 +40,11 @@
   <!-- Use test_depend for packages you need only for testing: -->
   <!--   <test_depend>gtest</test_depend> -->
   <buildtool_depend>ament_cmake</buildtool_depend>
-  <buildtool_depend>ament_python</buildtool_depend>
 
 
   <!-- The export tag contains other, unspecified, tags -->
   <export>
-        
+    <build_type>ament_cmake</build_type>
+
   </export>
 </package>
