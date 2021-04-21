@@ -1,12 +1,12 @@
 <launch>
 
   <!-- load the controllers -->
-  <node name="controller_manager" pkg="controller_manager" exec="spawner" respawn="false"
+  <node name="controller_manager" pkg="controller_manager" exec="spawner.py" respawn="false"
         output="screen" ns="/racecar" args="left_rear_wheel_velocity_controller right_rear_wheel_velocity_controller
                                             left_front_wheel_velocity_controller right_front_wheel_velocity_controller
                                             left_steering_hinge_position_controller right_steering_hinge_position_controller
                                             joint_state_controller">
-    <param from="$(find racecar_control)/config/racecar_control.yaml"/>
+    <param from="$(find-pkg-share racecar_control)/config/racecar_control.yaml"/>
   </node>                                          
 
   <!-- convert joint states to TF transforms for rviz, etc -->
@@ -15,7 +15,7 @@
   </node>
 
   <!-- servo node -->
-  <node pkg="racecar_control" exec="servo_commands.py" name="servo_commands" output="screen">
+  <node pkg="racecar_control" exec="servo_commands" name="servo_commands" output="screen">
     <remap from="/racecar/ackermann_cmd_mux/output" to="/vesc/low_level/ackermann_cmd_mux/output"/>
   </node>
 
