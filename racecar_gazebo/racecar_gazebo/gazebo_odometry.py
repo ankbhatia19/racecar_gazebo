@@ -6,7 +6,9 @@ Since Gazebo also publishes data faster than normal odom data, this script caps 
 Winter Guerra
 '''
 
-import rospy
+import rclpy
+from rclpy.qos import qos_profile_sensor_data
+from rclpy.node import Node
 from nav_msgs.msg import Odometry
 from geometry_msgs.msg import Pose, Twist, Transform, TransformStamped
 from gazebo_msgs.msg import LinkStates
@@ -16,22 +18,23 @@ import math
 import tf2_ros
 
 class OdometryNode:
-    # Set publishers
-    pub_odom = rospy.Publisher('/vesc/odom', Odometry, queue_size=1)
 
-    def __init__(self):
+    def __init__(self, node):
         # init internals
         self.last_received_pose = Pose()
         self.last_received_twist = Twist()
         self.last_recieved_stamp = None
 
         # Set the update rate
-        rospy.Timer(rospy.Duration(.05), self.timer_callback) # 20hz
+        rclpy.Timer(rospy.Duration(.05), self.timer_callback) # 20hz
 
         self.tf_pub = tf2_ros.TransformBroadcaster()
 
+        # Set publishers
+        self.pub_odom = node.create_publisher(Odometry,'/vesc/odom', queue_size=1)
+
         # Set subscribers
-        rospy.Subscriber('/gazebo/link_states', LinkStates, self.sub_robot_pose_update)
+        node.create_subscription(LinkStates,'/gazebo/link_states', self.sub_robot_pose_update,qos_profile=qos_profile_sensor_data)
 
     def sub_robot_pose_update(self, msg):
         # Find the index of the racecar
@@ -44,7 +47,7 @@ class OdometryNode:
             # Extract our current position information
             self.last_received_pose = msg.pose[arrayIndex]
             self.last_received_twist = msg.twist[arrayIndex]
-        self.last_recieved_stamp = rospy.Time.now()
+        self.last_recieved_stamp = rclpy.Time.now()
 
     def timer_callback(self, event):
         if self.last_recieved_stamp is None:
@@ -72,7 +75,8 @@ class OdometryNode:
         self.tf_pub.sendTransform(tf)
 
 # Start the node
-if __name__ == '__main__':
-    rospy.init_node("gazebo_odometry_node")
-    node = OdometryNode()
-    rospy.spin()
+def main(args=None):
+    rclpy.init(args=args)
+    node = rclpy.create_node('gazebo_odometry_node')
+    node_odom = OdometryNode(node)
+    rclpy.spin(node)
