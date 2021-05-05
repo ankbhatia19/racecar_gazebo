@@ -20,7 +20,7 @@ def main():
     sdf_file_path = os.path.join(
         get_package_share_directory("racecar_description"), "urdf",
         "racecar.xacro")
-    node = rclpy.create_node("entity_spawner")
+    node = rclpy.create_node("racecar_spawner")
 
     node.get_logger().info(
         'Creating Service client to connect to `/spawn_entity`')

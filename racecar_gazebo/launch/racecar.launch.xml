@@ -3,12 +3,12 @@
   <arg name="gui" default="true" />
   <arg name="run_camera" default="false"/>
 
-  <group>
-    <include file="$(find gazebo_ros)/launch/empty_world.launch">
-      <arg name="world_name" let="$(find racecar_gazebo)/worlds/$(arg world_name).world"/>
+  <!--group>
+    <include file="$(find-pkg-share gazebo_ros)/launch/empty_world.launch">
+      <arg name="world_name" let="$(find-pkg-share racecar_gazebo)/worlds/$(arg world_name).world"/>
       <arg name="gui" let="$(arg gui)"/>
     </include>
-  </group>
+  </group-->
 
   <!-- urdf xml robot description loaded on the Parameter Server, converting the xacro into a proper urdf file-->
   <!--param name="robot_description" command="$(find xacro)/xacro '$(find racecar_description)/urdf/racecar.xacro'" /-->
@@ -21,6 +21,9 @@
     <include file="$(find-pkg-share racecar_control)/launch/racecar_control.launch.xml" ns="/"/>
   </group>
   
+  <!-- Spawn Robot in Gazebo (gazebo needs to be started manually with libgazebo_ros_factory.so) -->
+  <node pkg="racecar_gazebo" exec="racecar_spawner" type="racecar_spawner.py"/>
+
   <!-- Spawn the MUXs -->
   <!--arg name="racecar_version" default="racecar-v2" />
   <include file="$(find racecar)/launch/mux.launch" ns="vesc" /-->
