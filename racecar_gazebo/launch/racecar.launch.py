@@ -52,10 +52,10 @@ def generate_launch_description():
                                    '-entity','racecar'],
                         output='screen')
 
-    load_joint_state_controller = ExecuteProcess(
-         cmd=['ros2', 'control', 'load_start_controller', 'joint_state_controller'],
-         output='screen'
-     )
+    #load_joint_state_controller = ExecuteProcess(
+    #     cmd=['ros2', 'control', 'load_start_controller', 'joint_state_controller'],
+    #     output='screen'
+    # )
 
     # load_effort_controller = ExecuteProcess(
     #     cmd=['ros2', 'control', 'load_start_controller', 'effort_controllers'],
@@ -63,13 +63,13 @@ def generate_launch_description():
     # )
 
     return LaunchDescription([
-        RegisterEventHandler(
-            event_handler=OnProcessExit(
-                target_action=spawn_entity,
-                on_exit=[load_joint_state_controller],
-                #on_exit=[],
-            )
-        ),
+        #RegisterEventHandler(
+        #    event_handler=OnProcessExit(
+        #        target_action=spawn_entity,
+        #        on_exit=[],
+        #        #on_exit=[],
+        #    )
+        #),
         #RegisterEventHandler(
         #    event_handler=OnProcessExit(
         #        target_action=load_joint_state_controller,
