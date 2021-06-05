@@ -14,9 +14,7 @@ from launch import LaunchDescription
 from launch.actions import ExecuteProcess, IncludeLaunchDescription, RegisterEventHandler
 from launch.event_handlers import OnProcessExit
 from launch.launch_description_sources import PythonLaunchDescriptionSource
-#from .xml_launch_description_source import XMLLaunchDescriptionSource
 from launch_ros.actions import Node
-
 import xacro
 
 def generate_launch_description():
@@ -32,9 +30,12 @@ def generate_launch_description():
     racecar_description_share_dir = os.path.join(
         get_package_share_directory('racecar_description'))
 
+    urdf_file_name = 'racecar.urdf.xml'
+    xacro_file_name = 'racecar.xacro.xml'
+
     xacro_file = os.path.join(racecar_description_share_dir,
                               'urdf',
-                              'racecar.xacro.xml')
+                               urdf_file_name)
 
     doc = xacro.parse(open(xacro_file))
     xacro.process_doc(doc)
@@ -49,7 +50,8 @@ def generate_launch_description():
 
     spawn_entity = Node(package='gazebo_ros', executable='spawn_entity.py',
                         arguments=['-topic', 'robot_description',
-                                   '-entity','racecar'],
+                                   '-entity','racecar',
+                                   '-x', '0', '-y', '0', '-z', '0.5'],
                         output='screen')
 
     #load_joint_state_controller = ExecuteProcess(
@@ -78,6 +80,8 @@ def generate_launch_description():
         #),
         gazebo,
         #racecar_control,
+        
         node_robot_state_publisher,
         spawn_entity,
+
     ])

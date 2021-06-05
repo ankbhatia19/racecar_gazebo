@@ -42,7 +42,7 @@
       <xacro:left_rear_wheel_geometry />
       <material name="black" />
     </visual>
-    <collision>robot
+    <collision>
       <xacro:left_wheels_collision_geometry />
     </collision>
   </link>
@@ -191,7 +191,9 @@
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0"/>
       <geometry>
-        <mesh filename="package://racecar_description/meshes/hokuyo.dae"/>
+        <mesh>
+          <uri>package://racecar_description/meshes/hokuyo.dae</uri> 
+        </mesh>
         <material name="grey" />
       </geometry>
     </visual>
