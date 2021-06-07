@@ -378,9 +378,14 @@
   </gazebo>
   <!-- Gazebo plugins -->
   <gazebo>
-    <plugin filename="libgazebo_ros_control.so" name="gazebo_ros_control">
+    <plugin filename="libgazebo_ros2_control.so" name="gazebo_ros2_control">
       <robotNamespace>/racecar</robotNamespace>
-      <robotSimType>gazebo_ros_control/DefaultRobotHWSim</robotSimType>
+      <robotSimType>gazebo_ros2_control/DefaultRobotHWSim</robotSimType>
+      <parameters>
+        $(find racecar_control)/config/gazebo_ros2_control_controllers.yaml
+      </parameters>
+      <control_period>0.01</control_period
+      <e_stop_topic>/estop</e_stop_topic>
     </plugin>
   </gazebo>
   <gazebo reference="laser">
@@ -476,4 +481,9 @@
   <material name="white">
     <color rgba="1.0 1.0 1.0 1.0"/>
   </material>
+  <ros2_control name="racecar" type="system">
+    <hardware>
+      <plugin>test_system</plugin>
+    </hardware>
+  </ros2_control>
 </robot>
