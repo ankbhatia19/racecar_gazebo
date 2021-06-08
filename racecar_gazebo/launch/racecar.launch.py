@@ -45,7 +45,8 @@ def generate_launch_description():
         package='robot_state_publisher',
         executable='robot_state_publisher',
         output='screen',
-        namespace='racecar',
+        #namespace='racecar',
+        remappings=[('/joint_states', '/racecar/joint_states')],
         parameters=[params]
     )
 

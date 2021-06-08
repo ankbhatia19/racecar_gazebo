@@ -382,9 +382,9 @@
       <robotNamespace>/racecar</robotNamespace>
       <robotSimType>gazebo_ros2_control/DefaultRobotHWSim</robotSimType>
       <parameters>
-        $(find racecar_control)/config/gazebo_ros2_control_controllers.yaml
+        $(find racecar_control)/config/racecar_control.yaml
       </parameters>
-      <control_period>0.01</control_period
+      <control_period>0.01</control_period>
       <e_stop_topic>/estop</e_stop_topic>
     </plugin>
   </gazebo>
