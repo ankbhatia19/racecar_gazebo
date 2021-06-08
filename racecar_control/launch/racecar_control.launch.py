@@ -3,7 +3,7 @@
 """
 Script used to start controllers for racecar_gazebo
 Code Modified from
-https://github.com/ros-simulation/gazebo_ros2_control/blob/master/gazebo_ros2_control_demos/launch/cart_example_effort.launch.py
+https://github.com/ros-controls/ros2_control_demos/blob/master/ros2_control_demo_robot/launch/rrbot_system_multi_interface.launch.py
 """
 
 
