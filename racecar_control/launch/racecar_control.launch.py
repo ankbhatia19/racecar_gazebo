@@ -45,6 +45,7 @@ def generate_launch_description():
             Node(
                 package="controller_manager",
                 executable="ros2_control_node",
+                namespace='racecar',
                 parameters=[robot_description, racecar_controller],
                 output={"stdout": "screen", "stderr": "screen"},
             )
