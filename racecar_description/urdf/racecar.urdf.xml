@@ -380,12 +380,12 @@
   <gazebo>
     <plugin filename="libgazebo_ros2_control.so" name="gazebo_ros2_control">
       <robotNamespace>/racecar</robotNamespace>
+      <robot_param>robot_description</robot_param>
+      <robot_param_node>robot_state_publisher</robot_param_node>
       <robotSimType>gazebo_ros2_control/DefaultRobotHWSim</robotSimType>
       <parameters>
         $(find racecar_control)/config/racecar_control.yaml
       </parameters>
-      <control_period>0.01</control_period>
-      <e_stop_topic>/estop</e_stop_topic>
     </plugin>
   </gazebo>
   <gazebo reference="laser">
@@ -413,7 +413,7 @@
           <stddev>0.01</stddev>
         </noise>
       </ray>
-      <plugin filename="libgazebo_ros_laser.so" name="gazebo_ros_hokuyo_controller">
+      <plugin filename="libgazebo_ros_ray_sensor.so" name="gazebo_ros_head_hokuyo_controller">
         <topicName>/scan</topicName>
         <frameName>laser</frameName>
       </plugin>
@@ -481,9 +481,33 @@
   <material name="white">
     <color rgba="1.0 1.0 1.0 1.0"/>
   </material>
-  <ros2_control name="racecar" type="system">
+  <ros2_control name="GazeboSystem" type="system">
     <hardware>
-      <plugin>test_system</plugin>
+      <plugin>gazebo_ros2_control/GazeboSystem</plugin>
     </hardware>
+    <joint name="left_rear_wheel_joint">
+      <command_interface name="effort"/>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="right_rear_wheel_joint">
+      <command_interface name="effort"/>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="left_front_wheel_joint">
+      <command_interface name="effort"/>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="right_front_wheel_joint">
+      <command_interface name="effort"/>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="right_steering_hinge_joint">
+      <command_interface name="effort"/>
+      <state_interface name="position"/>
+    </joint>
+    <joint name="left_steering_hinge_joint">
+      <command_interface name="effort"/>
+      <state_interface name="position"/>
+    </joint>
   </ros2_control>
 </robot>

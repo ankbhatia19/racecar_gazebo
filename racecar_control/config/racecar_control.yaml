@@ -28,29 +28,41 @@ controller_manager:
 
 left_rear_wheel_velocity_controller:
   ros__parameters:
-    joint: left_rear_wheel_joint
+    joints: 
+      -left_rear_wheel_joint
     pid: {p: 1.0, i: 0.0, d: 0.0, i_clamp: 0.0}
+    interface_name: velocity
 right_rear_wheel_velocity_controller:
   ros__parameters:
-    joint: right_rear_wheel_joint
+    joint: 
+      -right_rear_wheel_joint
     pid: {p: 1.0, i: 0.0, d: 0.0, i_clamp: 0.0}
+    interface_name: velocity
 left_front_wheel_velocity_controller:
   ros__parameters:
-    joint: left_front_wheel_joint
+    joints: 
+      -left_front_wheel_joint
     pid: {p: 0.5, i: 0.0, d: 0.0, i_clamp: 0.0}
+    interface_name: velocity
 right_front_wheel_velocity_controller:
   ros__parameters:
-    joint: right_front_wheel_joint
+    joints: 
+      -right_front_wheel_joint
     pid: {p: 0.5, i: 0.0, d: 0.0, i_clamp: 0.0}
+    interface_name: velocity
 
 
 # Position Controllers ---------------------------------------
 left_steering_hinge_position_controller:
   ros__parameters:
-    joint: left_steering_hinge_joint
+    joints: 
+      -left_steering_hinge_joint
     pid: {p: 1.0, i: 0.0, d: 0.5}
+    interface_name: position
 right_steering_hinge_position_controller:
   ros__parameters:
-    joint: right_steering_hinge_joint
+    joints: 
+      -right_steering_hinge_joint
     pid: {p: 1.0, i: 0.0, d: 0.5}
+    interface_name: position
 
