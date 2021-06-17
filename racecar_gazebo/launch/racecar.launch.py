@@ -14,9 +14,7 @@ from launch import LaunchDescription
 from launch.actions import ExecuteProcess, IncludeLaunchDescription, RegisterEventHandler
 from launch.event_handlers import OnProcessExit
 from launch.launch_description_sources import PythonLaunchDescriptionSource
-#from .xml_launch_description_source import XMLLaunchDescriptionSource
 from launch_ros.actions import Node
-
 import xacro
 
 def generate_launch_description():
@@ -32,9 +30,12 @@ def generate_launch_description():
     racecar_description_share_dir = os.path.join(
         get_package_share_directory('racecar_description'))
 
+    urdf_file_name = 'racecar.urdf.xml'
+    xacro_file_name = 'racecar.xacro.xml'
+
     xacro_file = os.path.join(racecar_description_share_dir,
                               'urdf',
-                              'racecar.xacro.xml')
+                               urdf_file_name)
 
     doc = xacro.parse(open(xacro_file))
     xacro.process_doc(doc)
@@ -44,40 +45,53 @@ def generate_launch_description():
         package='robot_state_publisher',
         executable='robot_state_publisher',
         output='screen',
+        #namespace='racecar',
+        remappings=[('/joint_states', '/racecar/joint_states')],
         parameters=[params]
     )
 
     spawn_entity = Node(package='gazebo_ros', executable='spawn_entity.py',
                         arguments=['-topic', 'robot_description',
-                                   '-entity','racecar'],
+                                   '-entity','racecar',
+                                   '-x', '0', '-y', '0', '-z', '0.5'],
                         output='screen')
 
-    #load_joint_state_controller = ExecuteProcess(
-    #     cmd=['ros2', 'control', 'load_start_controller', 'joint_state_controller'],
-    #     output='screen'
-    # )
+    load_joint_state_controller = ExecuteProcess(
+         cmd=['ros2', 'control', 'load_controller', '--set-state', 'start', 'joint_state_broadcaster'],
+         output='screen'
+     )
 
-    # load_effort_controller = ExecuteProcess(
-    #     cmd=['ros2', 'control', 'load_start_controller', 'effort_controllers'],
-    #     output='screen'
-    # )
+    controllers = ['left_rear_wheel_velocity_controller', 'right_rear_wheel_velocity_controller', 'left_front_wheel_velocity_controller', 'right_front_wheel_velocity_controller', 'left_steering_hinge_position_controller', 'right_steering_hinge_position_controller']
+    load_controllers = [ ExecuteProcess(
+                cmd=['ros2', 'control', 'load_controller', '--set-state', 'start', state],
+                output='screen'
+                )
+        for state in controllers]  
+
+
+
+    racecar_controller = os.path.join(
+        get_package_share_directory("racecar_control"),
+        "config",
+        "racecar_control.yaml",
+        )
 
     return LaunchDescription([
-        #RegisterEventHandler(
-        #    event_handler=OnProcessExit(
-        #        target_action=spawn_entity,
-        #        on_exit=[],
-        #        #on_exit=[],
-        #    )
-        #),
-        #RegisterEventHandler(
-        #    event_handler=OnProcessExit(
-        #        target_action=load_joint_state_controller,
-        #        on_exit=[load_effort_controller],
-        #    )
-        #),
+        RegisterEventHandler(
+           event_handler=OnProcessExit(
+               target_action=spawn_entity,
+               on_exit=[load_joint_state_controller],
+           )
+        ),
+        RegisterEventHandler(
+           event_handler=OnProcessExit(
+               target_action=load_joint_state_controller,
+               on_exit=load_controllers,
+           )
+        ),
         gazebo,
         #racecar_control,
+        
         node_robot_state_publisher,
-        spawn_entity,
+        spawn_entity
     ])
