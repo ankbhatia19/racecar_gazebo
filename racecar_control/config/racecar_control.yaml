@@ -1,10 +1,10 @@
 controller_manager:
   ros__parameters:
-    update_rate: 50 #Hz
+    update_rate: 1000 #Hz
 
     # Publish all joint states -----------------------------------
-    joint_state_controller:
-      type: joint_state_controller/JointStateController
+    joint_state_broadcaster:
+      type: joint_state_broadcaster/JointStateBroadcaster
 
     # Velocity Controllers ---------------------------------------
     left_rear_wheel_velocity_controller:
@@ -30,26 +30,30 @@ left_rear_wheel_velocity_controller:
   ros__parameters:
     joints: 
       -left_rear_wheel_joint
-    pid: {p: 1.0, i: 0.0, d: 0.0, i_clamp: 0.0}
-    interface_name: velocity
+    # pid: {p: 1.0, i: 0.0, d: 0.0, i_clamp: 0.0}
+    state_interfaces: velocity
+    command_interfaces: effort
 right_rear_wheel_velocity_controller:
   ros__parameters:
     joint: 
       -right_rear_wheel_joint
-    pid: {p: 1.0, i: 0.0, d: 0.0, i_clamp: 0.0}
-    interface_name: velocity
+    # pid: {p: 1.0, i: 0.0, d: 0.0, i_clamp: 0.0}
+    state_interfaces: velocity
+    command_interfaces: effort
 left_front_wheel_velocity_controller:
   ros__parameters:
     joints: 
       -left_front_wheel_joint
-    pid: {p: 0.5, i: 0.0, d: 0.0, i_clamp: 0.0}
-    interface_name: velocity
+    # pid: {p: 0.5, i: 0.0, d: 0.0, i_clamp: 0.0}
+    state_interfaces: velocity
+    command_interfaces: effort
 right_front_wheel_velocity_controller:
   ros__parameters:
     joints: 
       -right_front_wheel_joint
-    pid: {p: 0.5, i: 0.0, d: 0.0, i_clamp: 0.0}
-    interface_name: velocity
+    # pid: {p: 0.5, i: 0.0, d: 0.0, i_clamp: 0.0}
+    state_interfaces: velocity
+    command_interfaces: effort
 
 
 # Position Controllers ---------------------------------------
@@ -57,12 +61,14 @@ left_steering_hinge_position_controller:
   ros__parameters:
     joints: 
       -left_steering_hinge_joint
-    pid: {p: 1.0, i: 0.0, d: 0.5}
-    interface_name: position
+    # pid: {p: 1.0, i: 0.0, d: 0.5}
+    state_interfaces: position
+    command_interfaces: effort
 right_steering_hinge_position_controller:
   ros__parameters:
     joints: 
       -right_steering_hinge_joint
-    pid: {p: 1.0, i: 0.0, d: 0.5}
-    interface_name: position
+    # pid: {p: 1.0, i: 0.0, d: 0.5}
+    state_interfaces: position
+    command_interfaces: effort
 
