@@ -13,7 +13,7 @@
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="/root/dd_ws/install/racecar_description/share/racecar_description/meshes/chassis.STL"/>
+        <mesh filename="$(find racecar_description)/meshes/chassis.STL"/>
       </geometry>
       <material name="blue"/>
     </visual>
@@ -45,7 +45,7 @@
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="/root/dd_ws/install/racecar_description/share/racecar_description/meshes/left_rear_wheel.STL"/>
+        <mesh filename="$(find racecar_description)/meshes/left_rear_wheel.STL"/>
       </geometry>
       <material name="black"/>
     </visual>
@@ -83,7 +83,7 @@
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="/root/dd_ws/install/racecar_description/share/racecar_description/meshes/right_rear_wheel.STL"/>
+        <mesh filename="$(find racecar_description)/meshes/right_rear_wheel.STL"/>
       </geometry>
       <material name="black"/>
     </visual>
@@ -121,7 +121,7 @@
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="/root/dd_ws/install/racecar_description/share/racecar_description/meshes/left_steering_hinge.STL"/>
+        <mesh filename="$(find racecar_description)/meshes/left_steering_hinge.STL"/>
       </geometry>
       <material name="grey"/>
     </visual>
@@ -153,7 +153,7 @@
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="/root/dd_ws/install/racecar_description/share/racecar_description/meshes/right_steering_hinge.STL"/>
+        <mesh filename="$(find racecar_description)/meshes/right_steering_hinge.STL"/>
       </geometry>
       <material name="grey"/>
     </visual>
@@ -185,7 +185,7 @@
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="/root/dd_ws/install/racecar_description/share/racecar_description/meshes/left_front_wheel.STL"/>
+        <mesh filename="$(find racecar_description)/meshes/left_front_wheel.STL"/>
       </geometry>
       <material name="black"/>
     </visual>
@@ -223,7 +223,7 @@
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="/root/dd_ws/install/racecar_description/share/racecar_description/meshes/right_front_wheel.STL"/>
+        <mesh filename="$(find racecar_description)/meshes/right_front_wheel.STL"/>
       </geometry>
       <material name="black"/>
     </visual>
@@ -267,7 +267,7 @@
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="/root/dd_ws/install/racecar_description/share/racecar_description/meshes/hokuyo.dae"/>
+        <mesh filename="$(find racecar_description)/meshes/hokuyo.dae"/>
         <material name="grey"/>
       </geometry>
     </visual>
