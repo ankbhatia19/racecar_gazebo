@@ -15,7 +15,8 @@ from launch.actions import ExecuteProcess, IncludeLaunchDescription, RegisterEve
 from launch.event_handlers import OnProcessExit
 from launch.launch_description_sources import PythonLaunchDescriptionSource
 from launch_ros.actions import Node
-import xacro
+from launch.substitutions import Command, FindExecutable, PathJoinSubstitution
+from launch_ros.substitutions import FindPackageShare
 
 def generate_launch_description():
     gazebo = IncludeLaunchDescription(
@@ -23,43 +24,33 @@ def generate_launch_description():
                     get_package_share_directory('gazebo_ros'), 'launch'), '/gazebo.launch.py']),
              )
 
-    #racecar_control = IncludeLaunchDescription(([os.path.join(
-    #                get_package_share_directory('racecar_control'), 'launch'), '/racecar_control.launch.xml']),
-    #        )
-
-    racecar_description_share_dir = os.path.join(
-        get_package_share_directory('racecar_description'))
-
-    urdf_file_name = 'racecar.urdf.xml'
-    xacro_file_name = 'racecar.xacro.xml'
-
-    xacro_file = os.path.join(racecar_description_share_dir,
-                              'urdf',
-                               urdf_file_name)
-
-    doc = xacro.parse(open(xacro_file))
-    xacro.process_doc(doc)
-    params = {'robot_description': doc.toxml()}
+    robot_description_value = Command([
+        PathJoinSubstitution([FindExecutable(name="xacro")]),
+        " ",
+        PathJoinSubstitution([FindPackageShare("racecar_description"), "urdf", "racecar.xacro"])
+    ])
+    params = {"robot_description": robot_description_value}
 
     node_robot_state_publisher = Node(
         package='robot_state_publisher',
         executable='robot_state_publisher',
         output='screen',
-        #namespace='racecar',
         remappings=[('/joint_states', '/racecar/joint_states')],
         parameters=[params]
     )
 
-    spawn_entity = Node(package='gazebo_ros', executable='spawn_entity.py',
-                        arguments=['-topic', 'robot_description',
-                                   '-entity','racecar',
-                                   '-x', '0', '-y', '0', '-z', '0.5'],
-                        output='screen')
-
-    load_joint_state_controller = ExecuteProcess(
-         cmd=['ros2', 'control', 'load_controller', '--set-state', 'start', 'joint_state_broadcaster'],
-         output='screen'
-     )
+    spawn_entity = Node(
+        package='gazebo_ros', 
+        executable='spawn_entity.py',
+        arguments=[
+            '-topic', 'robot_description', 
+            '-entity','racecar', 
+            '-x', '0', 
+            '-y', '0', 
+            '-z', '0.5'
+        ],
+        output='screen'
+    )
 
     controllers = ['left_rear_wheel_velocity_controller', 'right_rear_wheel_velocity_controller', 'left_front_wheel_velocity_controller', 'right_front_wheel_velocity_controller', 'left_steering_hinge_position_controller', 'right_steering_hinge_position_controller']
     load_controllers = [ ExecuteProcess(
