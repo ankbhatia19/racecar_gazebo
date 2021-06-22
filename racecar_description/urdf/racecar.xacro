@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <robot name="racecar" xmlns:xacro="http://www.ros.org/wiki/xacro">
 
-  <xacro:include filename="$(find racecar_description)/urdf/macros.xacro.xml" />
+  <xacro:include filename="$(find racecar_description)/urdf/macros.xacro" />
 
   <!-- Add chassis and it's inertia link -->
 
@@ -42,7 +42,7 @@
       <xacro:left_rear_wheel_geometry />
       <material name="black" />
     </visual>
-    <collision>
+    <collision>robot
       <xacro:left_wheels_collision_geometry />
     </collision>
   </link>
@@ -191,9 +191,7 @@
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0"/>
       <geometry>
-        <mesh>
-          <uri>package://racecar_description/meshes/hokuyo.dae</uri> 
-        </mesh>
+        <mesh filename="package://racecar_description/meshes/hokuyo.dae"/>
         <material name="grey" />
       </geometry>
     </visual>
@@ -269,8 +267,56 @@
   </joint>
 
   <!-- Add the remaining xacros -->
-
   <xacro:include filename="$(find racecar_description)/urdf/racecar.gazebo" />
-  <xacro:include filename="$(find racecar_description)/urdf/materials.xacro.xml" />
+  <xacro:include filename="$(find racecar_description)/urdf/materials.xacro" />
+
+  <!-- Add ros2 xacros -->
+  <ros2_control name="GazeboSystem" type="system">
+    <hardware>
+      <plugin>gazebo_ros2_control/GazeboSystem</plugin>
+    </hardware>
+    <joint name="left_rear_wheel_joint">
+      <command_interface name="effort">
+        <param name="min">-1000</param>
+        <param name="max">1000</param>
+      </command_interface>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="right_rear_wheel_joint">
+      <command_interface name="effort">
+        <param name="min">-1000</param>
+        <param name="max">1000</param>
+      </command_interface>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="left_front_wheel_joint">
+      <command_interface name="effort">
+        <param name="min">-1000</param>
+        <param name="max">1000</param>
+      </command_interface>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="right_front_wheel_joint">
+      <command_interface name="effort">
+        <param name="min">-1000</param>
+        <param name="max">1000</param>
+      </command_interface>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="right_steering_hinge_joint">
+      <command_interface name="effort">
+        <param name="min">-1000</param>
+        <param name="max">1000</param>
+      </command_interface>
+      <state_interface name="position"/>
+    </joint>
+    <joint name="left_steering_hinge_joint">
+      <command_interface name="effort">
+        <param name="min">-1000</param>
+        <param name="max">1000</param>
+      </command_interface>
+      <state_interface name="position"/>
+    </joint>
+  </ros2_control>
 
 </robot>
