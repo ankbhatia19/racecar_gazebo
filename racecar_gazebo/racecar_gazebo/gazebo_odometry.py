@@ -17,24 +17,25 @@ import numpy as np
 import math
 import tf2_ros
 
-class OdometryNode:
+class OdometryNode(Node):
 
-    def __init__(self, node):
+    def __init__(self):
+        super().__init__('gazebo_odometry_node')
         # init internals
         self.last_received_pose = Pose()
         self.last_received_twist = Twist()
         self.last_recieved_stamp = None
 
         # Set the update rate
-        rclpy.Timer(rospy.Duration(.05), self.timer_callback) # 20hz
+        self.tmr = self.create_timer(.05, self.timer_callback) # 20hz
 
-        self.tf_pub = tf2_ros.TransformBroadcaster()
+        self.tf_pub = tf2_ros.TransformBroadcaster(self)
 
         # Set publishers
-        self.pub_odom = node.create_publisher(Odometry,'/vesc/odom', queue_size=1)
+        self.pub_odom = self.create_publisher(Odometry,'/vesc/odom', 1)
 
         # Set subscribers
-        node.create_subscription(LinkStates,'/gazebo/link_states', self.sub_robot_pose_update,qos_profile=qos_profile_sensor_data)
+        self.sub = self.create_subscription(LinkStates,'/gazebo/link_states', self.sub_robot_pose_update, 10)
 
     def sub_robot_pose_update(self, msg):
         # Find the index of the racecar
@@ -49,7 +50,7 @@ class OdometryNode:
             self.last_received_twist = msg.twist[arrayIndex]
         self.last_recieved_stamp = rclpy.Time.now()
 
-    def timer_callback(self, event):
+    def timer_callback(self):
         if self.last_recieved_stamp is None:
             return
 
@@ -77,6 +78,16 @@ class OdometryNode:
 # Start the node
 def main(args=None):
     rclpy.init(args=args)
-    node = rclpy.create_node('gazebo_odometry_node')
-    node_odom = OdometryNode(node)
-    rclpy.spin(node)
+
+    node = OdometryNode()
+
+    try:
+        rclpy.spin(node)
+    except KeyboardInterrupt:
+        pass
+    
+    node.destroy_node()
+    rclpy.shutdown()
+
+if __name__ == "__main__":
+    main()
