@@ -15,9 +15,6 @@ setup(
         (os.path.join('share', package_name, 'meshes'), glob('meshes/*.dae')),
         (os.path.join('share', package_name, 'meshes'), glob('meshes/*.STL')),
         (os.path.join('share', package_name, 'urdf'), glob('urdf/*.xacro')),
-        (os.path.join('share', package_name, 'urdf'), glob('urdf/*.gazebo')),
-
-        
     ],
     install_requires=['setuptools'],
     zip_safe=True,
