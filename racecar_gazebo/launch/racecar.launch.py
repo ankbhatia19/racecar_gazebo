@@ -17,6 +17,7 @@ from launch.launch_description_sources import PythonLaunchDescriptionSource
 from launch_ros.actions import Node
 from launch.substitutions import Command, FindExecutable, PathJoinSubstitution
 from launch_ros.substitutions import FindPackageShare
+import xacro
 
 def generate_launch_description():
     gazebo = IncludeLaunchDescription(
@@ -24,18 +25,23 @@ def generate_launch_description():
                     get_package_share_directory('gazebo_ros'), 'launch'), '/gazebo.launch.py']),
              )
 
-    robot_description_value = Command([
-        PathJoinSubstitution([FindExecutable(name="xacro")]),
-        " ",
-        PathJoinSubstitution([FindPackageShare("racecar_description"), "urdf", "racecar.xacro"])
-    ])
+    # NOTE: Load the processed xacro file directly
+    description_location = os.path.join(
+        get_package_share_directory('racecar_description'))
+
+    xacro_file = os.path.join(description_location,
+                              'urdf',
+                              'racecar.xacro')
+    doc = xacro.parse(open(xacro_file))
+    xacro.process_doc(doc)
+    robot_description_value = doc.toxml()
+
     params = {"robot_description": robot_description_value}
 
     node_robot_state_publisher = Node(
         package='robot_state_publisher',
         executable='robot_state_publisher',
         output='screen',
-        remappings=[('/joint_states', '/racecar/joint_states')],
         parameters=[params]
     )
 
