@@ -58,14 +58,19 @@ def generate_launch_description():
         output='screen'
     )
 
+    # NOTE: THIS IS DEPRECATED VERSION OF LOADING
+    load_joint_state_controller = ExecuteProcess(
+         cmd=['ros2', 'control', 'load_start_controller', 'joint_state_broadcaster'],
+         output='screen'
+     )
+
+    # NOTE: THIS IS DEPRECATED VERSION OF LOADING CONTROLLER
     controllers = ['left_rear_wheel_velocity_controller', 'right_rear_wheel_velocity_controller', 'left_front_wheel_velocity_controller', 'right_front_wheel_velocity_controller', 'left_steering_hinge_position_controller', 'right_steering_hinge_position_controller']
     load_controllers = [ ExecuteProcess(
-                cmd=['ros2', 'control', 'load_controller', '--set-state', 'start', state],
+                cmd=['ros2', 'control', 'load_start_controller', state],
                 output='screen'
                 )
         for state in controllers]  
-
-
 
     racecar_controller = os.path.join(
         get_package_share_directory("racecar_control"),
@@ -87,8 +92,6 @@ def generate_launch_description():
            )
         ),
         gazebo,
-        #racecar_control,
-        
         node_robot_state_publisher,
-        spawn_entity
+        spawn_entity,
     ])
