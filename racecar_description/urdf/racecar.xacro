@@ -55,7 +55,7 @@
     <limit effort="10" velocity="100" />
   </joint>
 
-  <xacro:wheel_transmission name="left_rear_wheel" />
+  <!-- <xacro:wheel_transmission name="left_rear_wheel" /> -->
 
   <!-- Add the right rear wheel with its joints and tranmissions -->
 
@@ -80,7 +80,7 @@
     <limit effort="10" velocity="100" />
   </joint>
 
-  <xacro:wheel_transmission name="right_rear_wheel" />
+  <!-- <xacro:wheel_transmission name="right_rear_wheel" /> -->
 
   <!-- Add the left steering hinge with its joints and tranmissions -->
 
@@ -102,7 +102,7 @@
     <limit lower="-0.4" upper="0.4" effort="10" velocity="100" />
   </joint>
 
-  <xacro:steering_hinge_transmission name="left_steering_hinge" />
+  <!-- <xacro:steering_hinge_transmission name="left_steering_hinge" /> -->
 
   <!-- Add the right steering hinge with its joints and tranmissions -->
 
@@ -124,7 +124,7 @@
     <limit lower="-0.4" upper="0.4" effort="10" velocity="100" />
   </joint>
 
-  <xacro:steering_hinge_transmission name="right_steering_hinge" />
+  <!-- <xacro:steering_hinge_transmission name="right_steering_hinge" /> -->
 
   <!-- Add the left front wheel with its joints and tranmissions -->
 
@@ -149,7 +149,7 @@
     <limit effort="10" velocity="100" />
   </joint>
 
-  <xacro:wheel_transmission name="left_front_wheel" />
+  <!-- <xacro:wheel_transmission name="left_front_wheel" /> -->
 
   <!-- Add the left front wheel with its joints and tranmissions -->
 
@@ -174,7 +174,7 @@
     <limit effort="10" velocity="100"/>
   </joint>
   
-  <xacro:wheel_transmission name="right_front_wheel" />
+  <!-- <xacro:wheel_transmission name="right_front_wheel" /> -->
 
   <!-- Add Hokuyo laser scanner -->
 
@@ -276,28 +276,28 @@
       <plugin>gazebo_ros2_control/GazeboSystem</plugin>
     </hardware>
     <joint name="left_rear_wheel_joint">
-      <command_interface name="effort">
+      <command_interface name="velocity">
         <param name="min">-1000</param>
         <param name="max">1000</param>
       </command_interface>
       <state_interface name="velocity"/>
     </joint>
     <joint name="right_rear_wheel_joint">
-      <command_interface name="effort">
+      <command_interface name="velocity">
         <param name="min">-1000</param>
         <param name="max">1000</param>
       </command_interface>
       <state_interface name="velocity"/>
     </joint>
     <joint name="left_front_wheel_joint">
-      <command_interface name="effort">
+      <command_interface name="velocity">
         <param name="min">-1000</param>
         <param name="max">1000</param>
       </command_interface>
       <state_interface name="velocity"/>
     </joint>
     <joint name="right_front_wheel_joint">
-      <command_interface name="effort">
+      <command_interface name="velocity">
         <param name="min">-1000</param>
         <param name="max">1000</param>
       </command_interface>
