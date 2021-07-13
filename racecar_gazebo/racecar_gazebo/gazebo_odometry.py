@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 '''
 This script makes Gazebo less fail by translating gazebo status messages to odometry data.
@@ -6,7 +6,9 @@ Since Gazebo also publishes data faster than normal odom data, this script caps 
 Winter Guerra
 '''
 
-import rospy
+import rclpy
+from rclpy.qos import qos_profile_sensor_data
+from rclpy.node import Node
 from nav_msgs.msg import Odometry
 from geometry_msgs.msg import Pose, Twist, Transform, TransformStamped
 from gazebo_msgs.msg import LinkStates
@@ -15,23 +17,25 @@ import numpy as np
 import math
 import tf2_ros
 
-class OdometryNode:
-    # Set publishers
-    pub_odom = rospy.Publisher('/vesc/odom', Odometry, queue_size=1)
+class OdometryNode(Node):
 
     def __init__(self):
+        super().__init__('gazebo_odometry_node')
         # init internals
         self.last_received_pose = Pose()
         self.last_received_twist = Twist()
         self.last_recieved_stamp = None
 
         # Set the update rate
-        rospy.Timer(rospy.Duration(.05), self.timer_callback) # 20hz
+        self.tmr = self.create_timer(.05, self.timer_callback) # 20hz
 
-        self.tf_pub = tf2_ros.TransformBroadcaster()
+        self.tf_pub = tf2_ros.TransformBroadcaster(self)
+
+        # Set publishers
+        self.pub_odom = self.create_publisher(Odometry,'/vesc/odom', 1)
 
         # Set subscribers
-        rospy.Subscriber('/gazebo/link_states', LinkStates, self.sub_robot_pose_update)
+        self.sub = self.create_subscription(LinkStates,'/gazebo/link_states', self.sub_robot_pose_update, 10)
 
     def sub_robot_pose_update(self, msg):
         # Find the index of the racecar
@@ -44,9 +48,9 @@ class OdometryNode:
             # Extract our current position information
             self.last_received_pose = msg.pose[arrayIndex]
             self.last_received_twist = msg.twist[arrayIndex]
-        self.last_recieved_stamp = rospy.Time.now()
+        self.last_recieved_stamp = rclpy.Time.now()
 
-    def timer_callback(self, event):
+    def timer_callback(self):
         if self.last_recieved_stamp is None:
             return
 
@@ -72,7 +76,18 @@ class OdometryNode:
         self.tf_pub.sendTransform(tf)
 
 # Start the node
-if __name__ == '__main__':
-    rospy.init_node("gazebo_odometry_node")
+def main(args=None):
+    rclpy.init(args=args)
+
     node = OdometryNode()
-    rospy.spin()
+
+    try:
+        rclpy.spin(node)
+    except KeyboardInterrupt:
+        pass
+    
+    node.destroy_node()
+    rclpy.shutdown()
+
+if __name__ == "__main__":
+    main()

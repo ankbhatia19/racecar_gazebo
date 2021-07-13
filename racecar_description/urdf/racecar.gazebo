@@ -50,9 +50,13 @@
 <!-- Gazebo plugins -->
 
 <gazebo>
-  <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
-    <robotNamespace>/racecar</robotNamespace>
-    <robotSimType>gazebo_ros_control/DefaultRobotHWSim</robotSimType>
+  <plugin name="gazebo_ros2_control" filename="libgazebo_ros2_control.so">
+    <!-- <namespace>/racecar</namespace> -->
+    <robot_param>robot_description</robot_param> 
+    <robot_param_node>robot_state_publisher</robot_param_node> 
+    <parameters>
+      $(find racecar_control)/config/racecar_control.yaml
+    </parameters>
   </plugin>
 </gazebo>
 
