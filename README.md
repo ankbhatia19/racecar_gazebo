@@ -30,7 +30,9 @@ ros2 launch racecar_gazebo racecar.launch.py
 ## Code structure
 This package retains the file structure of [mit-racecar/racecar_gazebo](https://github.com/mit-racecar/racecar_gazebo) while making a few changes to follow ROS2 standards.
 
-- ```racecar_control```: This package containes the config and launch files for the controllers.
+- ```racecar_control```: This package contains the config and launch files for the controllers.
 - ```racecar_description```: This package stores the URDF, meshes, STLs and other model files describing the racecar.
-- ```racecar_gazebo```: This package containes launch files for starting the gazebo simulation.
+- ```racecar_gazebo```: This package contains launch files for starting the gazebo simulation.
+
+
 
