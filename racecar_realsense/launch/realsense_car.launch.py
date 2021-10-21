@@ -96,6 +96,16 @@ def generate_launch_description():
            )
     )
 
+    cmd_group = GroupAction([
+        IncludeLaunchDescription(
+            PythonLaunchDescriptionSource(os.path.join(camera_launch_dir, '')),
+            launch_arguments={
+                'camera_name1': camera_name1,
+                'device_type1': device_type1,
+                'base_frame_id': base_frame_id,
+                'odom_frame_id': odom_frame_id}.items())
+    ])
+            
 
     # Create the launch description and populate
     ld = LaunchDescription()
@@ -108,7 +118,10 @@ def generate_launch_description():
     ld.add_action(declare_device1_type)
     ld.add_action(declare_base_frame)
     ld.add_action(declare_odom_frame)
-
+    
+    ld.add_action(node_robot_state_publisher)
     ld.add_action(controller_event)
+
+    ld.add_action(cmd_group)
 
     return ld

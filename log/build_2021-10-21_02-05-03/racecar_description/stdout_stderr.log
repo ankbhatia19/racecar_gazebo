@@ -1,0 +1,54 @@
+running egg_info
+creating ../build/racecar_description/racecar_description.egg-info
+writing ../build/racecar_description/racecar_description.egg-info/PKG-INFO
+writing dependency_links to ../build/racecar_description/racecar_description.egg-info/dependency_links.txt
+writing entry points to ../build/racecar_description/racecar_description.egg-info/entry_points.txt
+writing requirements to ../build/racecar_description/racecar_description.egg-info/requires.txt
+writing top-level names to ../build/racecar_description/racecar_description.egg-info/top_level.txt
+writing manifest file '../build/racecar_description/racecar_description.egg-info/SOURCES.txt'
+reading manifest file '../build/racecar_description/racecar_description.egg-info/SOURCES.txt'
+writing manifest file '../build/racecar_description/racecar_description.egg-info/SOURCES.txt'
+running build
+running build_py
+creating /workspace/racecar_project/racecar_gazebo/build/racecar_description/build
+creating /workspace/racecar_project/racecar_gazebo/build/racecar_description/build/lib
+creating /workspace/racecar_project/racecar_gazebo/build/racecar_description/build/lib/racecar_description
+copying racecar_description/__init__.py -> /workspace/racecar_project/racecar_gazebo/build/racecar_description/build/lib/racecar_description
+running install
+running install_lib
+creating /workspace/racecar_project/racecar_gazebo/install/racecar_description/lib/python3.8/site-packages/racecar_description
+copying /workspace/racecar_project/racecar_gazebo/build/racecar_description/build/lib/racecar_description/__init__.py -> /workspace/racecar_project/racecar_gazebo/install/racecar_description/lib/python3.8/site-packages/racecar_description
+byte-compiling /workspace/racecar_project/racecar_gazebo/install/racecar_description/lib/python3.8/site-packages/racecar_description/__init__.py to __init__.cpython-38.pyc
+running install_data
+creating /workspace/racecar_project/racecar_gazebo/install/racecar_description/share/ament_index
+creating /workspace/racecar_project/racecar_gazebo/install/racecar_description/share/ament_index/resource_index
+creating /workspace/racecar_project/racecar_gazebo/install/racecar_description/share/ament_index/resource_index/packages
+copying resource/racecar_description -> /workspace/racecar_project/racecar_gazebo/install/racecar_description/share/ament_index/resource_index/packages
+copying package.xml -> /workspace/racecar_project/racecar_gazebo/install/racecar_description/share/racecar_description
+creating /workspace/racecar_project/racecar_gazebo/install/racecar_description/share/racecar_description/meshes
+copying meshes/left_rear_wheel.dae -> /workspace/racecar_project/racecar_gazebo/install/racecar_description/share/racecar_description/meshes
+copying meshes/walker_racecourse.dae -> /workspace/racecar_project/racecar_gazebo/install/racecar_description/share/racecar_description/meshes
+copying meshes/cone.dae -> /workspace/racecar_project/racecar_gazebo/install/racecar_description/share/racecar_description/meshes
+copying meshes/left_front_wheel.dae -> /workspace/racecar_project/racecar_gazebo/install/racecar_description/share/racecar_description/meshes
+copying meshes/right_steering_hinge.dae -> /workspace/racecar_project/racecar_gazebo/install/racecar_description/share/racecar_description/meshes
+copying meshes/right_rear_wheel.dae -> /workspace/racecar_project/racecar_gazebo/install/racecar_description/share/racecar_description/meshes
+copying meshes/chassis.dae -> /workspace/racecar_project/racecar_gazebo/install/racecar_description/share/racecar_description/meshes
+copying meshes/right_front_wheel.dae -> /workspace/racecar_project/racecar_gazebo/install/racecar_description/share/racecar_description/meshes
+copying meshes/hokuyo.dae -> /workspace/racecar_project/racecar_gazebo/install/racecar_description/share/racecar_description/meshes
+copying meshes/left_steering_hinge.dae -> /workspace/racecar_project/racecar_gazebo/install/racecar_description/share/racecar_description/meshes
+copying meshes/parking_1.dae -> /workspace/racecar_project/racecar_gazebo/install/racecar_description/share/racecar_description/meshes
+copying meshes/left_steering_hinge.STL -> /workspace/racecar_project/racecar_gazebo/install/racecar_description/share/racecar_description/meshes
+copying meshes/left_rear_wheel.STL -> /workspace/racecar_project/racecar_gazebo/install/racecar_description/share/racecar_description/meshes
+copying meshes/left_front_wheel.STL -> /workspace/racecar_project/racecar_gazebo/install/racecar_description/share/racecar_description/meshes
+copying meshes/right_steering_hinge.STL -> /workspace/racecar_project/racecar_gazebo/install/racecar_description/share/racecar_description/meshes
+copying meshes/right_front_wheel.STL -> /workspace/racecar_project/racecar_gazebo/install/racecar_description/share/racecar_description/meshes
+copying meshes/right_rear_wheel.STL -> /workspace/racecar_project/racecar_gazebo/install/racecar_description/share/racecar_description/meshes
+copying meshes/chassis.STL -> /workspace/racecar_project/racecar_gazebo/install/racecar_description/share/racecar_description/meshes
+creating /workspace/racecar_project/racecar_gazebo/install/racecar_description/share/racecar_description/urdf
+copying urdf/macros.xacro -> /workspace/racecar_project/racecar_gazebo/install/racecar_description/share/racecar_description/urdf
+copying urdf/materials.xacro -> /workspace/racecar_project/racecar_gazebo/install/racecar_description/share/racecar_description/urdf
+copying urdf/racecar.xacro -> /workspace/racecar_project/racecar_gazebo/install/racecar_description/share/racecar_description/urdf
+running install_egg_info
+Copying ../build/racecar_description/racecar_description.egg-info to /workspace/racecar_project/racecar_gazebo/install/racecar_description/lib/python3.8/site-packages/racecar_description-0.0.0-py3.8.egg-info
+running install_scripts
+writing list of installed files to '/workspace/racecar_project/racecar_gazebo/build/racecar_description/install.log'

@@ -1,0 +1,43 @@
+running egg_info
+creating ../build/racecar_control/racecar_control.egg-info
+writing ../build/racecar_control/racecar_control.egg-info/PKG-INFO
+writing dependency_links to ../build/racecar_control/racecar_control.egg-info/dependency_links.txt
+writing entry points to ../build/racecar_control/racecar_control.egg-info/entry_points.txt
+writing requirements to ../build/racecar_control/racecar_control.egg-info/requires.txt
+writing top-level names to ../build/racecar_control/racecar_control.egg-info/top_level.txt
+writing manifest file '../build/racecar_control/racecar_control.egg-info/SOURCES.txt'
+reading manifest file '../build/racecar_control/racecar_control.egg-info/SOURCES.txt'
+writing manifest file '../build/racecar_control/racecar_control.egg-info/SOURCES.txt'
+running build
+running build_py
+creating /workspace/racecar_project/racecar_gazebo/build/racecar_control/build
+creating /workspace/racecar_project/racecar_gazebo/build/racecar_control/build/lib
+creating /workspace/racecar_project/racecar_gazebo/build/racecar_control/build/lib/racecar_control
+copying racecar_control/servo_commands.py -> /workspace/racecar_project/racecar_gazebo/build/racecar_control/build/lib/racecar_control
+copying racecar_control/__init__.py -> /workspace/racecar_project/racecar_gazebo/build/racecar_control/build/lib/racecar_control
+copying racecar_control/keyboard_teleop.py -> /workspace/racecar_project/racecar_gazebo/build/racecar_control/build/lib/racecar_control
+running install
+running install_lib
+creating /workspace/racecar_project/racecar_gazebo/install/racecar_control/lib/python3.8/site-packages/racecar_control
+copying /workspace/racecar_project/racecar_gazebo/build/racecar_control/build/lib/racecar_control/servo_commands.py -> /workspace/racecar_project/racecar_gazebo/install/racecar_control/lib/python3.8/site-packages/racecar_control
+copying /workspace/racecar_project/racecar_gazebo/build/racecar_control/build/lib/racecar_control/__init__.py -> /workspace/racecar_project/racecar_gazebo/install/racecar_control/lib/python3.8/site-packages/racecar_control
+copying /workspace/racecar_project/racecar_gazebo/build/racecar_control/build/lib/racecar_control/keyboard_teleop.py -> /workspace/racecar_project/racecar_gazebo/install/racecar_control/lib/python3.8/site-packages/racecar_control
+byte-compiling /workspace/racecar_project/racecar_gazebo/install/racecar_control/lib/python3.8/site-packages/racecar_control/servo_commands.py to servo_commands.cpython-38.pyc
+byte-compiling /workspace/racecar_project/racecar_gazebo/install/racecar_control/lib/python3.8/site-packages/racecar_control/__init__.py to __init__.cpython-38.pyc
+byte-compiling /workspace/racecar_project/racecar_gazebo/install/racecar_control/lib/python3.8/site-packages/racecar_control/keyboard_teleop.py to keyboard_teleop.cpython-38.pyc
+running install_data
+creating /workspace/racecar_project/racecar_gazebo/install/racecar_control/share/ament_index
+creating /workspace/racecar_project/racecar_gazebo/install/racecar_control/share/ament_index/resource_index
+creating /workspace/racecar_project/racecar_gazebo/install/racecar_control/share/ament_index/resource_index/packages
+copying resource/racecar_control -> /workspace/racecar_project/racecar_gazebo/install/racecar_control/share/ament_index/resource_index/packages
+copying package.xml -> /workspace/racecar_project/racecar_gazebo/install/racecar_control/share/racecar_control
+creating /workspace/racecar_project/racecar_gazebo/install/racecar_control/share/racecar_control/launch
+copying launch/racecar_control.launch.py -> /workspace/racecar_project/racecar_gazebo/install/racecar_control/share/racecar_control/launch
+creating /workspace/racecar_project/racecar_gazebo/install/racecar_control/share/racecar_control/config
+copying config/racecar_control.yaml -> /workspace/racecar_project/racecar_gazebo/install/racecar_control/share/racecar_control/config
+running install_egg_info
+Copying ../build/racecar_control/racecar_control.egg-info to /workspace/racecar_project/racecar_gazebo/install/racecar_control/lib/python3.8/site-packages/racecar_control-0.0.0-py3.8.egg-info
+running install_scripts
+Installing keyop script to /workspace/racecar_project/racecar_gazebo/install/racecar_control/lib/racecar_control
+Installing servo_commands script to /workspace/racecar_project/racecar_gazebo/install/racecar_control/lib/racecar_control
+writing list of installed files to '/workspace/racecar_project/racecar_gazebo/build/racecar_control/install.log'

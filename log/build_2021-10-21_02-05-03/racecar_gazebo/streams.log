@@ -1,0 +1,52 @@
+[0.712s] Invoking command in '/workspace/racecar_project/racecar_gazebo/racecar_gazebo': PYTHONPATH=/workspace/racecar_project/racecar_gazebo/install/racecar_gazebo/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py egg_info --egg-base ../build/racecar_gazebo build --build-base /workspace/racecar_project/racecar_gazebo/build/racecar_gazebo/build install --prefix /workspace/racecar_project/racecar_gazebo/install/racecar_gazebo --record /workspace/racecar_project/racecar_gazebo/build/racecar_gazebo/install.log --single-version-externally-managed
+[1.039s] running egg_info
+[1.042s] creating ../build/racecar_gazebo/racecar_gazebo.egg-info
+[1.043s] writing ../build/racecar_gazebo/racecar_gazebo.egg-info/PKG-INFO
+[1.044s] writing dependency_links to ../build/racecar_gazebo/racecar_gazebo.egg-info/dependency_links.txt
+[1.045s] writing entry points to ../build/racecar_gazebo/racecar_gazebo.egg-info/entry_points.txt
+[1.045s] writing requirements to ../build/racecar_gazebo/racecar_gazebo.egg-info/requires.txt
+[1.047s] writing top-level names to ../build/racecar_gazebo/racecar_gazebo.egg-info/top_level.txt
+[1.122s] writing manifest file '../build/racecar_gazebo/racecar_gazebo.egg-info/SOURCES.txt'
+[1.375s] reading manifest file '../build/racecar_gazebo/racecar_gazebo.egg-info/SOURCES.txt'
+[1.377s] writing manifest file '../build/racecar_gazebo/racecar_gazebo.egg-info/SOURCES.txt'
+[1.377s] running build
+[1.378s] running build_py
+[1.378s] creating /workspace/racecar_project/racecar_gazebo/build/racecar_gazebo/build
+[1.378s] creating /workspace/racecar_project/racecar_gazebo/build/racecar_gazebo/build/lib
+[1.378s] creating /workspace/racecar_project/racecar_gazebo/build/racecar_gazebo/build/lib/racecar_gazebo
+[1.378s] copying racecar_gazebo/gazebo_odometry.py -> /workspace/racecar_project/racecar_gazebo/build/racecar_gazebo/build/lib/racecar_gazebo
+[1.385s] copying racecar_gazebo/racecar_spawner.py -> /workspace/racecar_project/racecar_gazebo/build/racecar_gazebo/build/lib/racecar_gazebo
+[1.393s] copying racecar_gazebo/__init__.py -> /workspace/racecar_project/racecar_gazebo/build/racecar_gazebo/build/lib/racecar_gazebo
+[1.394s] running install
+[1.405s] running install_lib
+[1.407s] creating /workspace/racecar_project/racecar_gazebo/install/racecar_gazebo/lib/python3.8/site-packages/racecar_gazebo
+[1.408s] copying /workspace/racecar_project/racecar_gazebo/build/racecar_gazebo/build/lib/racecar_gazebo/gazebo_odometry.py -> /workspace/racecar_project/racecar_gazebo/install/racecar_gazebo/lib/python3.8/site-packages/racecar_gazebo
+[1.408s] copying /workspace/racecar_project/racecar_gazebo/build/racecar_gazebo/build/lib/racecar_gazebo/racecar_spawner.py -> /workspace/racecar_project/racecar_gazebo/install/racecar_gazebo/lib/python3.8/site-packages/racecar_gazebo
+[1.409s] copying /workspace/racecar_project/racecar_gazebo/build/racecar_gazebo/build/lib/racecar_gazebo/__init__.py -> /workspace/racecar_project/racecar_gazebo/install/racecar_gazebo/lib/python3.8/site-packages/racecar_gazebo
+[1.409s] byte-compiling /workspace/racecar_project/racecar_gazebo/install/racecar_gazebo/lib/python3.8/site-packages/racecar_gazebo/gazebo_odometry.py to gazebo_odometry.cpython-38.pyc
+[1.411s] byte-compiling /workspace/racecar_project/racecar_gazebo/install/racecar_gazebo/lib/python3.8/site-packages/racecar_gazebo/racecar_spawner.py to racecar_spawner.cpython-38.pyc
+[1.413s] byte-compiling /workspace/racecar_project/racecar_gazebo/install/racecar_gazebo/lib/python3.8/site-packages/racecar_gazebo/__init__.py to __init__.cpython-38.pyc
+[1.414s] running install_data
+[1.415s] creating /workspace/racecar_project/racecar_gazebo/install/racecar_gazebo/share/ament_index
+[1.415s] creating /workspace/racecar_project/racecar_gazebo/install/racecar_gazebo/share/ament_index/resource_index
+[1.415s] creating /workspace/racecar_project/racecar_gazebo/install/racecar_gazebo/share/ament_index/resource_index/packages
+[1.415s] copying resource/racecar_gazebo -> /workspace/racecar_project/racecar_gazebo/install/racecar_gazebo/share/ament_index/resource_index/packages
+[1.416s] copying package.xml -> /workspace/racecar_project/racecar_gazebo/install/racecar_gazebo/share/racecar_gazebo
+[1.416s] creating /workspace/racecar_project/racecar_gazebo/install/racecar_gazebo/share/racecar_gazebo/launch
+[1.416s] copying launch/racecar.launch.xml -> /workspace/racecar_project/racecar_gazebo/install/racecar_gazebo/share/racecar_gazebo/launch
+[1.416s] copying launch/racecar.launch.py -> /workspace/racecar_project/racecar_gazebo/install/racecar_gazebo/share/racecar_gazebo/launch
+[1.444s] creating /workspace/racecar_project/racecar_gazebo/install/racecar_gazebo/share/racecar_gazebo/worlds
+[1.445s] copying worlds/racecar_parking_1.world -> /workspace/racecar_project/racecar_gazebo/install/racecar_gazebo/share/racecar_gazebo/worlds
+[1.446s] copying worlds/racecar_urdf.world -> /workspace/racecar_project/racecar_gazebo/install/racecar_gazebo/share/racecar_gazebo/worlds
+[1.450s] copying worlds/racecar_cones.world -> /workspace/racecar_project/racecar_gazebo/install/racecar_gazebo/share/racecar_gazebo/worlds
+[1.451s] copying worlds/racecar_ar.world -> /workspace/racecar_project/racecar_gazebo/install/racecar_gazebo/share/racecar_gazebo/worlds
+[1.453s] copying worlds/racecar_walker.world -> /workspace/racecar_project/racecar_gazebo/install/racecar_gazebo/share/racecar_gazebo/worlds
+[1.508s] copying worlds/racecar.world -> /workspace/racecar_project/racecar_gazebo/install/racecar_gazebo/share/racecar_gazebo/worlds
+[1.510s] copying worlds/racecar_tunnel.world -> /workspace/racecar_project/racecar_gazebo/install/racecar_gazebo/share/racecar_gazebo/worlds
+[1.510s] running install_egg_info
+[1.596s] Copying ../build/racecar_gazebo/racecar_gazebo.egg-info to /workspace/racecar_project/racecar_gazebo/install/racecar_gazebo/lib/python3.8/site-packages/racecar_gazebo-0.0.0-py3.8.egg-info
+[1.599s] running install_scripts
+[1.815s] Installing gazebo_odometry_node script to /workspace/racecar_project/racecar_gazebo/install/racecar_gazebo/lib/racecar_gazebo
+[1.816s] Installing racecar_spawner script to /workspace/racecar_project/racecar_gazebo/install/racecar_gazebo/lib/racecar_gazebo
+[1.816s] writing list of installed files to '/workspace/racecar_project/racecar_gazebo/build/racecar_gazebo/install.log'
+[1.896s] Invoked command in '/workspace/racecar_project/racecar_gazebo/racecar_gazebo' returned '0': PYTHONPATH=/workspace/racecar_project/racecar_gazebo/install/racecar_gazebo/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py egg_info --egg-base ../build/racecar_gazebo build --build-base /workspace/racecar_project/racecar_gazebo/build/racecar_gazebo/build install --prefix /workspace/racecar_project/racecar_gazebo/install/racecar_gazebo --record /workspace/racecar_project/racecar_gazebo/build/racecar_gazebo/install.log --single-version-externally-managed

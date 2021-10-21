@@ -1,0 +1,48 @@
+[0.637s] Invoking command in '/workspace/racecar_project/racecar_gazebo/build/racecar_realsense': CMAKE_PREFIX_PATH=/opt/ros/foxy /usr/bin/cmake /workspace/racecar_project/racecar_gazebo/racecar_realsense -DCMAKE_INSTALL_PREFIX=/workspace/racecar_project/racecar_gazebo/install/racecar_realsense
+[3.124s] -- The C compiler identification is GNU 9.3.0
+[3.784s] -- The CXX compiler identification is GNU 9.3.0
+[3.884s] -- Check for working C compiler: /usr/bin/cc
+[4.144s] -- Check for working C compiler: /usr/bin/cc -- works
+[4.146s] -- Detecting C compiler ABI info
+[4.265s] -- Detecting C compiler ABI info - done
+[4.293s] -- Detecting C compile features
+[4.295s] -- Detecting C compile features - done
+[4.301s] -- Check for working CXX compiler: /usr/bin/c++
+[4.364s] -- Check for working CXX compiler: /usr/bin/c++ -- works
+[4.365s] -- Detecting CXX compiler ABI info
+[4.426s] -- Detecting CXX compiler ABI info - done
+[4.440s] -- Detecting CXX compile features
+[4.440s] -- Detecting CXX compile features - done
+[4.487s] -- Found ament_cmake: 0.9.9 (/opt/ros/foxy/share/ament_cmake/cmake)
+[4.577s] -- Found PythonInterp: /usr/bin/python3 (found suitable version "3.8.10", minimum required is "3") 
+[4.577s] -- Using PYTHON_EXECUTABLE: /usr/bin/python3
+[4.959s] -- Found ament_lint_auto: 0.9.6 (/opt/ros/foxy/share/ament_lint_auto/cmake)
+[5.100s] -- Added test 'copyright' to check source files copyright and LICENSE
+[5.110s] -- Added test 'flake8' to check Python code syntax and style conventions
+[5.113s] -- Added test 'lint_cmake' to check CMake code style
+[5.115s] -- Added test 'pep257' to check Python code against some of the style conventions in PEP 257
+[5.121s] -- Added test 'xmllint' to check XML markup files
+[5.131s] -- Configuring done
+[5.137s] -- Generating done
+[5.139s] -- Build files have been written to: /workspace/racecar_project/racecar_gazebo/build/racecar_realsense
+[5.144s] Invoked command in '/workspace/racecar_project/racecar_gazebo/build/racecar_realsense' returned '0': CMAKE_PREFIX_PATH=/opt/ros/foxy /usr/bin/cmake /workspace/racecar_project/racecar_gazebo/racecar_realsense -DCMAKE_INSTALL_PREFIX=/workspace/racecar_project/racecar_gazebo/install/racecar_realsense
+[5.148s] Invoking command in '/workspace/racecar_project/racecar_gazebo/build/racecar_realsense': CMAKE_PREFIX_PATH=/opt/ros/foxy /usr/bin/cmake --build /workspace/racecar_project/racecar_gazebo/build/racecar_realsense -- -j8 -l8
+[5.187s] Invoked command in '/workspace/racecar_project/racecar_gazebo/build/racecar_realsense' returned '0': CMAKE_PREFIX_PATH=/opt/ros/foxy /usr/bin/cmake --build /workspace/racecar_project/racecar_gazebo/build/racecar_realsense -- -j8 -l8
+[5.212s] Invoking command in '/workspace/racecar_project/racecar_gazebo/build/racecar_realsense': CMAKE_PREFIX_PATH=/opt/ros/foxy /usr/bin/cmake --install /workspace/racecar_project/racecar_gazebo/build/racecar_realsense
+[5.218s] -- Install configuration: ""
+[5.218s] -- Installing: /workspace/racecar_project/racecar_gazebo/install/racecar_realsense/share/ament_index/resource_index/package_run_dependencies/racecar_realsense
+[5.218s] -- Installing: /workspace/racecar_project/racecar_gazebo/install/racecar_realsense/share/ament_index/resource_index/parent_prefix_path/racecar_realsense
+[5.218s] -- Installing: /workspace/racecar_project/racecar_gazebo/install/racecar_realsense/share/racecar_realsense/environment/ament_prefix_path.sh
+[5.219s] -- Installing: /workspace/racecar_project/racecar_gazebo/install/racecar_realsense/share/racecar_realsense/environment/ament_prefix_path.dsv
+[5.219s] -- Installing: /workspace/racecar_project/racecar_gazebo/install/racecar_realsense/share/racecar_realsense/environment/path.sh
+[5.219s] -- Installing: /workspace/racecar_project/racecar_gazebo/install/racecar_realsense/share/racecar_realsense/environment/path.dsv
+[5.219s] -- Installing: /workspace/racecar_project/racecar_gazebo/install/racecar_realsense/share/racecar_realsense/local_setup.bash
+[5.219s] -- Installing: /workspace/racecar_project/racecar_gazebo/install/racecar_realsense/share/racecar_realsense/local_setup.sh
+[5.219s] -- Installing: /workspace/racecar_project/racecar_gazebo/install/racecar_realsense/share/racecar_realsense/local_setup.zsh
+[5.219s] -- Installing: /workspace/racecar_project/racecar_gazebo/install/racecar_realsense/share/racecar_realsense/local_setup.dsv
+[5.219s] -- Installing: /workspace/racecar_project/racecar_gazebo/install/racecar_realsense/share/racecar_realsense/package.dsv
+[5.219s] -- Installing: /workspace/racecar_project/racecar_gazebo/install/racecar_realsense/share/ament_index/resource_index/packages/racecar_realsense
+[5.220s] -- Installing: /workspace/racecar_project/racecar_gazebo/install/racecar_realsense/share/racecar_realsense/cmake/racecar_realsenseConfig.cmake
+[5.220s] -- Installing: /workspace/racecar_project/racecar_gazebo/install/racecar_realsense/share/racecar_realsense/cmake/racecar_realsenseConfig-version.cmake
+[5.220s] -- Installing: /workspace/racecar_project/racecar_gazebo/install/racecar_realsense/share/racecar_realsense/package.xml
+[5.222s] Invoked command in '/workspace/racecar_project/racecar_gazebo/build/racecar_realsense' returned '0': CMAKE_PREFIX_PATH=/opt/ros/foxy /usr/bin/cmake --install /workspace/racecar_project/racecar_gazebo/build/racecar_realsense
