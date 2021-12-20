@@ -4,124 +4,127 @@ from ament_index_python.packages import get_package_share_directory
 
 from launch import LaunchDescription
 from launch.actions import (DeclareLaunchArgument, GroupAction,
-                            IncludeLaunchDescription, SetEnvironmentVariable)
+			    IncludeLaunchDescription, ExecuteProcess, SetEnvironmentVariable, RegisterEventHandler)
+from launch.event_handlers import OnProcessExit
 from launch.conditions import IfCondition
-from launch.launch_description_sources import PythonLaunchDescriptionSource
-from launch.substitutions import LaunchConfiguration, PythonExpression
-from launch_ros.actions import PushRosNamespace
+from launch.launch_description_sources import PythonLaunchDescriptionSource, FrontendLaunchDescriptionSource
+from launch.substitutions import LaunchConfiguration, PythonExpression, Command, FindExecutable, PathJoinSubstitution
+from launch_ros.actions import PushRosNamespace, Node
 import xacro
 
 
 def generate_launch_description():
-    # Get directories for various projects
-    
-    ## Racecar directories ##
-    racecar_dir = get_package_share_directory('racecar_gazebo')
-    racecar_launch_dir = os.path.join(racecar_dir, 'launch')
-    racecar_description_dir = get_package_share_directory('racecar_description')
+	# Get directories for various projects
+	
+	## Racecar directories ##
+	racecar_dir = get_package_share_directory('racecar_gazebo')
+	racecar_launch_dir = os.path.join(racecar_dir, 'launch')
+	racecar_description_dir = get_package_share_directory('racecar_description')
 
-    ## Camera directories ##
-    camera_dir = get_package_share_directory('base')
-    camera_launch_dir = os.path.join(camera_dir, 'launch')
+	## Camera directories ##
+	config_dir = os.path.join(get_package_share_directory('racecar_realsense'), 'config')
+	d435_config = os.path.join(config_dir, 'D435.yaml')
+	t265_config = os.path.join(config_dir, 'T265.yaml')
 
-    # Load and config racecar
-    racecar_xacro = os.path.join(racecar_description_dir, 'urdf', 'racecar.xacro')
-    xacro_parse = xacro.parse(open(racecar_xacro))
-    xacro.process_doc(xacro_parse)
-    robot_description_value = xacro_parse.toxml()
-    racecar_params = {"robot_description": robot_description_value}
+	## Depth image to Laserscan directories ##
+	depthimage_config = os.path.join(config_dir, 'depthimage.yaml')
 
-    node_robot_state_publisher = Node(
-            package='robot_state_publisher',
-            executable='robot_state_publisher',
-            output='screen',
-            parameters=[racecar_params]
-    )
+	## Cartographer directories ##
+	cartographer_config = 'racecar_cartographer.lua'
+
+	resolution = LaunchConfiguration('resolution', default='0.05')
+	publish_period_sec = LaunchConfiguration('publish_period_sec', default='1.0')
 
 
+	# Load and config racecar
+	racecar_xacro = os.path.join(racecar_description_dir, 'urdf', 'racecar.xacro')
+	xacro_parse = xacro.parse(open(racecar_xacro))
+	xacro.process_doc(xacro_parse)
+	robot_description_value = xacro_parse.toxml()
+	racecar_params = {"robot_description": robot_description_value}
 
-    # Launch config variables for D435 and T265 cameras
-    camera_name1 = LaunchConfiguration('camera_name1')
-    device_type1 = LaunchConfiguration('device_type1')
-    base_frame_id = LaunchConfiguration('base_frame_id')
-    odom_frame_id = LaunchConfiguration('odom_frame_id')
+	node_robot_state_publisher = Node(
+		package='robot_state_publisher',
+		executable='robot_state_publisher',
+		output='screen',
+		parameters=[racecar_params]
+	)
 
-    stdout_linebuf_envvar = SetEnvironmentVariable(
-        'RCUTILS_LOGGING_BUFFERED_STREAM', '1')
+	# Load cameras
+	d435_node = Node(
+		package='realsense2_camera',
+		executable='realsense2_camera_node',
+		name='D435',
+		#namespace='D435',
+		output='screen',
+		parameters=[d435_config],
+		remappings=[]
+	)    
 
-    declare_camera1_name = DeclareLaunchArgument(
-            'camera_name1',
-            default_value='D435',
-            description='Name of the D435 camera')
+	t265_node = Node(
+		package='realsense2_camera',
+		executable='realsense2_camera_node',
+		name='T265',
+		#namespace='T265',
+		output='screen',
+		parameters=[t265_config],
+		remappings=[('/T265/odom/sample', '/odom')]
+	)    
 
-    declare_device1_type = DeclareLaunchArgument(
-            'device_type1',
-            default_value='d435',
-            description='Type of camera being used')
+	# Load cartographer
+	map_odom_statictf = Node(
+		## Configure the TF of the robot to the origin of the map coordinates
+		package='tf2_ros',
+		executable='static_transform_publisher',
+		output='screen',
+		arguments=['0', '0', '0', '0', '0', '0', 'map', 'odom_frame']
+	)
 
-    declare_base_frame = DeclareLaunchArgument(
-            'base_frame_id',
-            default_value='/base_link',
-            description='')
+	depthimage_to_laserscan_node = Node(
+		package='depthimage_to_laserscan',
+		executable='depthimage_to_laserscan_node',
+		name='scan',
+		output='screen',
+		parameters=[depthimage_config],
+		remappings=[('depth','/depth/image_rect_raw'),
+			('depth_camera_info', '/depth/camera_info')],
+	)
 
-    declare_odom_frame = DeclareLaunchArgument(
-            'odom_frame_id',
-            default_value='/odom',
-            description='')
-    
-    # NOTE: THIS IS DEPRECATED VERSION OF LOADING
-    load_joint_state_controller = ExecuteProcess(
-         cmd=['ros2', 'control', 'load_start_controller', 'joint_state_broadcaster'],
-         output='screen'
-     )
+	cartographer_node = Node(
+		package='cartographer_ros',
+		node_executable='cartographer_node',
+		output='log',
+		arguments=['-configuration_directory', config_dir, '-configuration_basename', cartographer_config]
+	)
 
-    # NOTE: THIS IS DEPRECATED VERSION OF LOADING CONTROLLER
-    controllers = ['left_rear_wheel_velocity_controller', 'right_rear_wheel_velocity_controller', 'left_front_wheel_velocity_controller', 'right_front_wheel_velocity_controller', 'left_steering_hinge_position_controller', 'right_steering_hinge_position_controller']
-    load_controllers = [ ExecuteProcess(
-                cmd=['ros2', 'control', 'load_start_controller', state],
-                output='screen'
-                )
-        for state in controllers]
+	occupancy_grid_node = Node(
+        	package='cartographer_ros',
+            	executable='occupancy_grid_node',
+            	name='occupancy_grid_node',
+        	arguments=['-resolution', '0.05', '-publish_period_sec', '1.0']
+	)
+	
+	stdout_linebuf_envvar = SetEnvironmentVariable(
+		'RCUTILS_LOGGING_BUFFERED_STREAM', '1')
 
-    racecar_controller = os.path.join(
-        get_package_share_directory("racecar_control"),
-        "config",
-        "racecar_control.yaml",
-        )
+		
 
-    controller_event = RegisterEventHandler(
-           event_handler=OnProcessExit(
-               target_action=load_joint_state_controller,
-               on_exit=load_controllers,
-           )
-    )
+	# Create the launch description and populate
+	ld = LaunchDescription()
 
-    cmd_group = GroupAction([
-        IncludeLaunchDescription(
-            PythonLaunchDescriptionSource(os.path.join(camera_launch_dir, '')),
-            launch_arguments={
-                'camera_name1': camera_name1,
-                'device_type1': device_type1,
-                'base_frame_id': base_frame_id,
-                'odom_frame_id': odom_frame_id}.items())
-    ])
-            
+	# Set environment variables
+	ld.add_action(stdout_linebuf_envvar)
+	
+	ld.add_action(node_robot_state_publisher)
 
-    # Create the launch description and populate
-    ld = LaunchDescription()
+	# Camera launches
+	ld.add_action(d435_node)
+	ld.add_action(t265_node)
 
-    # Set environment variables
-    ld.add_action(stdout_linebuf_envvar)
+	# Cartographer launches
+	ld.add_action(map_odom_statictf)
+	ld.add_action(depthimage_to_laserscan_node)
+	ld.add_action(cartographer_node)
+	ld.add_action(occupancy_grid_node)
 
-    # Declare the launch options
-    ld.add_action(declare_camera1_name)
-    ld.add_action(declare_device1_type)
-    ld.add_action(declare_base_frame)
-    ld.add_action(declare_odom_frame)
-    
-    ld.add_action(node_robot_state_publisher)
-    ld.add_action(controller_event)
-
-    ld.add_action(cmd_group)
-
-    return ld
+	return ld

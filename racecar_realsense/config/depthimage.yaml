@@ -1,0 +1,8 @@
+scan:
+  ros__parameters:
+    output_frame: camera_link
+    range_max: 10.0
+    range_min: 0.45
+    scan_height: 10
+    scan_time: 0.033
+    use_sim_time: false
