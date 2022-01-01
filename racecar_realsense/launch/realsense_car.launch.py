@@ -32,8 +32,8 @@ def generate_launch_description():
 	## Cartographer directories ##
 	cartographer_config = 'racecar_cartographer.lua'
 
-	resolution = LaunchConfiguration('resolution', default='0.05')
-	publish_period_sec = LaunchConfiguration('publish_period_sec', default='1.0')
+	## SLAM Toolbox directories ##
+	slam_toolbox_config = os.path.join(config_dir, 'slam_toolbox.yaml');
 
 
 	# Load and config racecar
@@ -92,20 +92,28 @@ def generate_launch_description():
 
 	cartographer_node = Node(
 		package='cartographer_ros',
-		node_executable='cartographer_node',
+		executable='cartographer_node',
 		output='log',
 		arguments=['-configuration_directory', config_dir, '-configuration_basename', cartographer_config]
 	)
 
+	start_async_slam_toolbox_node = Node(
+        parameters=[slam_toolbox_config],
+        package='slam_toolbox',
+        executable='async_slam_toolbox_node',
+        name='slam_toolbox',
+        output='screen'
+	)
+
 	occupancy_grid_node = Node(
-        	package='cartographer_ros',
-            	executable='occupancy_grid_node',
-            	name='occupancy_grid_node',
-        	arguments=['-resolution', '0.05', '-publish_period_sec', '1.0']
+        package='cartographer_ros',
+        executable='occupancy_grid_node',
+        name='occupancy_grid_node',
+        arguments=['-resolution', '0.05', '-publish_period_sec', '1.0']
 	)
 	
-	stdout_linebuf_envvar = SetEnvironmentVariable(
-		'RCUTILS_LOGGING_BUFFERED_STREAM', '1')
+	stdout_use_envvar = SetEnvironmentVariable(
+		'RCUTILS_LOGGING_USE_STDOUT', '1')
 
 		
 
@@ -113,8 +121,9 @@ def generate_launch_description():
 	ld = LaunchDescription()
 
 	# Set environment variables
-	ld.add_action(stdout_linebuf_envvar)
+	# ld.add_action(stdout_use_envvar)
 	
+	# Launch robot specific transforms
 	ld.add_action(node_robot_state_publisher)
 
 	# Camera launches
@@ -122,9 +131,10 @@ def generate_launch_description():
 	ld.add_action(t265_node)
 
 	# Cartographer launches
-	ld.add_action(map_odom_statictf)
+	# ld.add_action(map_odom_statictf)
 	ld.add_action(depthimage_to_laserscan_node)
-	ld.add_action(cartographer_node)
-	ld.add_action(occupancy_grid_node)
+	# ld.add_action(cartographer_node)
+	ld.add_action(start_async_slam_toolbox_node)
+	# 	ld.add_action(occupancy_grid_node)
 
 	return ld
