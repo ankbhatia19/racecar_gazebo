@@ -62,7 +62,8 @@ def generate_launch_description():
 		parameters=[t265_config],
 		remappings=[('/T265/odom/sample', '/odom')]
 	)    
-
+ 
+	# Load mapping nodes
 	depthimage_to_laserscan_node = Node(
 		package='depthimage_to_laserscan',
 		executable='depthimage_to_laserscan_node',

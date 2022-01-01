@@ -176,34 +176,6 @@
   
   <!-- <xacro:wheel_transmission name="right_front_wheel" /> -->
 
-  <!-- Add Hokuyo laser scanner -->
-
-  <link name="laser">
-    <inertial>
-      <xacro:hokuyo_inertial_params />
-    </inertial>
-    <collision>
-      <origin xyz="0 0 0" rpy="0 0 0"/>
-      <geometry>
-        <box size="0.1 0.1 0.1"/>
-      </geometry>
-    </collision>
-    <visual>
-      <origin xyz="0 0 0" rpy="0 0 0"/>
-      <geometry>
-        <mesh filename="package://racecar_description/meshes/hokuyo.dae"/>
-        <material name="grey" />
-      </geometry>
-    </visual>
-  </link>
-
-  <joint name="hokuyo_joint" type="fixed">
-    <origin xyz="0.265 0.0 0.075" rpy="0 0 0"/>
-    <parent link="chassis" />
-    <child link="laser" />
-    <axis xyz="0 0 1" />
-  </joint>
-
 
   <!-- zed camera -->
   <link name="camera_link">
