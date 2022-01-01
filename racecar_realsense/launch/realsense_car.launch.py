@@ -74,11 +74,11 @@ def generate_launch_description():
 	)
 
 	start_async_slam_toolbox_node = Node(
-        parameters=[slam_toolbox_config],
-        package='slam_toolbox',
-        executable='async_slam_toolbox_node',
-        name='slam_toolbox',
-        output='screen'
+		parameters=[slam_toolbox_config],
+                package='slam_toolbox',
+                executable='async_slam_toolbox_node',
+                name='slam_toolbox',
+                output='screen'
 	)
 		
 
