@@ -3,12 +3,33 @@ import os
 from ament_index_python.packages import get_package_share_directory
 
 from launch import LaunchDescription
-from launch.actions import (DeclareLaunchArgument, GroupAction,
-			    IncludeLaunchDescription, ExecuteProcess, SetEnvironmentVariable, RegisterEventHandler)
+
+from launch.actions import (
+	DeclareLaunchArgument, 
+	GroupAction, 
+	IncludeLaunchDescription, 
+	ExecuteProcess, 
+	SetEnvironmentVariable, 
+	RegisterEventHandler, 
+	TimerAction
+)
+
 from launch.event_handlers import OnProcessExit
 from launch.conditions import IfCondition
-from launch.launch_description_sources import PythonLaunchDescriptionSource, FrontendLaunchDescriptionSource
-from launch.substitutions import LaunchConfiguration, PythonExpression, Command, FindExecutable, PathJoinSubstitution
+
+from launch.launch_description_sources import (
+	PythonLaunchDescriptionSource, 
+	FrontendLaunchDescriptionSource
+)
+
+from launch.substitutions import (
+	LaunchConfiguration, 
+	PythonExpression, 
+	Command, 
+	FindExecutable, 
+	PathJoinSubstitution
+)
+
 from launch_ros.actions import PushRosNamespace, Node
 import xacro
 
@@ -75,25 +96,51 @@ def generate_launch_description():
 
 	start_async_slam_toolbox_node = Node(
 		parameters=[slam_toolbox_config],
-                package='slam_toolbox',
-                executable='async_slam_toolbox_node',
-                name='slam_toolbox',
-                output='screen'
+        package='slam_toolbox',
+        executable='async_slam_toolbox_node',
+        name='slam_toolbox',
+        output='screen'
 	)
 		
+    # Delay camera launch to allow for restart and correct init
+	d435_delay_launch = TimerAction(
+		period=5.0, 
+		actions=[
+			d435_node
+		]
+	)
+
+	t265_delay_launch = TimerAction(
+		period=25.0, 
+		actions=[ 
+			t265_node
+		]
+	)
+
+	slam_delay_launch = TimerAction(
+		period=45.0, 
+		actions=[
+			depthimage_to_laserscan_node,
+			start_async_slam_toolbox_node
+		]
+	)
+
 
 	# Create the launch description and populate
 	ld = LaunchDescription()
 	
 	# Launch robot specific transforms
 	ld.add_action(node_robot_state_publisher)
+	
+	#ld.add_action(d435_delay_launch)
+	#ld.add_action(t265_delay_launch)
 
-	# Camera launches
-	ld.add_action(d435_node)
-	ld.add_action(t265_node)
+	# ld.add_action(slam_delay_launch)
+    # ld.add_action(d435_node)
+	# ld.add_action(t265_node)
 
 	# Mapping launches
-	ld.add_action(depthimage_to_laserscan_node)
+	# ld.add_action(depthimage_to_laserscan_node)
 	ld.add_action(start_async_slam_toolbox_node)
 
 	return ld

@@ -82,7 +82,7 @@ T265:
     infra_qos: SYSTEM_DEFAULT
     infra_rgb: false
     infra_width: -1
-    initial_reset: false
+    initial_reset: true
     json_file_path: ''
     linear_accel_cov: 0.01
     odom_frame_id: camera_link
